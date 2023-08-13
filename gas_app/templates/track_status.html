@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<html>
+<head>
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet" >
+</head>
+<body style="background-color:skyblue;">
+
+{% block content %}
+    <h1>Track Service Status</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Track">
+    </form>
+    {% if requests %}
+        <h2>Service Requests:</h2>
+        <ul>
+        {% for request in requests %}
+            <li>
+                Request Date: {{ request.request_date }}<br>
+                Status: {{ request.status }}<br>
+                Service Type: {{ request.service_type }}<br>
+                Description: {{ request.description }}<br>
+                Resolution Date: {{ request.resolution_date }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+</body>
+</html>
